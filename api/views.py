@@ -6,38 +6,62 @@ from api.models import University, Univ_detail, Category
 
 # Create your views here.
 
-# class SampleTemplate(TemplateView):
-
-    # template_name = "api/base.html"
-	#
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs) # はじめに継承元のメソッドを呼び出す
-    #     context["universities"] = University.objects.all().order_by('id')
-    #     context["subjects"] = Univ_detail.objects.all().values()
-    #     return context
-
-
 def Top(request):
 	# Topページ
 	# return HttpResponse('this page is Top page.')
 	universities = University.objects.all().order_by('id')
 	subjects = Univ_detail.objects.all()
-	print(type(universities))
+	print(universities)
 	print(subjects)
 	return render(request,
 				  'api/base.html',  # 使用するテンプレート
 				  {'univ_names': universities,'subject_names': subjects}# テンプレートに渡すデータ
 				  )
 
-def Show_belonging(request):
-	parents = []
-	parents = Category.objects.all().order_by('id').filter(parent = "")
-	print(type(parents))
-	child = []
-	for p in parents:
-		child = Category.objects.all().filter(parent = p).values_list("child",flat=True)
-		print(child)
+# def Get_belonging(request):
+# 	univs = Category.objects.all().order_by('id').filter(parent = "")
+# 	departs={}
+# 	subjects={}
+# 	for univ in univs:
+# 		departs[univ] = list(Category.objects.all().order_by('id').filter(parent = univ).values_list('child', flat=True))
+# 		for depart in departs[univ]:
+# 			subjects[depart] = list(
+# 				Category.objects.all().order_by('id').filter(parent=depart).values_list('child', flat=True))
+# 	print(subjects)
+# 	return render(request,
+# 				  'api/base.html',{# 使用するテンプレート
+# 					  'univs_name': univs,
+# 					  'departs_name' : departs,
+# 					  'subjects_name': subjects
+# 				  }  # テンプレートに渡すデータ
+# 				  )
+# def Get_belonging(request):
+# 	belonging={}
+# 	univs = Category.objects.all().order_by('id').filter(parent = "")
+# 	for univ in univs:
+# 		belonging[univ] = list(Category.objects.all().order_by('id').filter(parent = univ).values_list('child', flat=True))
+# 		for depart in range(len(belonging[univ])):
+# 			print(belonging[univ][depart])
+# 			print(belonging[univ])
+# 			print(list(Category.objects.all().order_by('id').filter(parent = depart).values_list('child', flat=True)))
+# 	return render(request,
+# 				  'api/base.html',{# 使用するテンプレート
+# 					  'belonging': belonging,
+# 				  }  # テンプレートに渡すデータ
+# 				  )
+
+def Get_belonging(request):
+	belonging={}
+	univs = Category.objects.all().order_by('id').filter(parent = "")
+	for univ in univs:
+		belonging[univ] = list(Category.objects.all().order_by('id').filter(parent = univ).values_list('child', flat=True))
+		for depart in range(len(belonging[univ])):
+			print(belonging[univ][depart])
+			print(belonging[univ])
+			print(list(Category.objects.all().order_by('id').filter(parent = depart).values_list('child', flat=True)))
 	return render(request,
-				  'api/base.html',  # 使用するテンプレート
-				  {'univ_names': parents,'dep_name':child}# テンプレートに渡すデータ
+				  'api/base.html',{# 使用するテンプレート
+					  'belonging': belonging,
+				  }  # テンプレートに渡すデータ
 				  )
+

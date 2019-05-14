@@ -12,12 +12,15 @@
 <body>
   <div class="container">
     {% block content %}
-        {% for p in univ_names %}
-            {{ p }}<br>
-            {% for x in dep_name %}
-                　　{{ x }}<br>
-            {% endfor %}
-        {% endfor %}
+      {% for univ,depart_name in departs_name.items %}
+          {{ univ }}<br>
+          {% for depart in depart_name %}
+              　　{{ depart }}<br>
+              {% for depat in depart %}
+              　　{{ depat }}<br>
+              {% endfor %}
+          {% endfor %}
+      {% endfor %}
     {% endblock %}
   </div>
 </body>
