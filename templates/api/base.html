@@ -12,13 +12,13 @@
 <body>
   <div class="container">
     {% block content %}
-      {% for univ,depart_name in departs_name.items %}
+      {% for univ,departs in belonging.items %}
           {{ univ }}<br>
-          {% for depart in depart_name %}
+          {% for depart,subjects in departs.items %}
               　　{{ depart }}<br>
-              {% for depat in depart %}
-              　　{{ depat }}<br>
-              {% endfor %}
+                  {% for subject in subjects %}
+                  　　　　{{ subject }}<br>
+                  {% endfor %}
           {% endfor %}
       {% endfor %}
     {% endblock %}

@@ -18,7 +18,13 @@ class Univ_detail(models.Model):
 		return self.department_name + " " + self.subject_name + " " + str(self.school_year) + "年生"
 
 class Category(models.Model):
+	univ = models.CharField("大学名", max_length=31)
 	parent = models.CharField("親", max_length=31, blank=True)
 	child = models.CharField("子", max_length=31)
 	def __str__(self):
-		return self.parent + self.child
+		if not self.parent:
+			return self.child + "大学"
+		elif self.univ == self.parent:
+			return self.parent + "大学" + self.child
+		else:
+			return self.univ + "大学" + self.parent + self.child

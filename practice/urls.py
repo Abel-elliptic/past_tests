@@ -20,6 +20,5 @@ from api import views
 app_name = 'api'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.Top, name="Top"),
-    path('base', views.Get_belonging, name="Belonging"),
+    path('', views.Get_belonging, name="Belonging"),
 ]
