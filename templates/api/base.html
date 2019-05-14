@@ -4,24 +4,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="{% static 'api/css/bootstrap.min.css' %}">
-{% block extra_css %}
-{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'api/style.css' %}">
 <title>{% block title %}My Univ{% endblock %}</title>
 </head>
 <body>
-  <div class="container">
-    {% block content %}
-      {% for univ,departs in belonging.items %}
-          {{ univ }}<br>
-          {% for depart,subjects in departs.items %}
-              　　{{ depart }}<br>
-                  {% for subject in subjects %}
-                  　　　　{{ subject }}<br>
-                  {% endfor %}
-          {% endfor %}
-      {% endfor %}
-    {% endblock %}
-  </div>
+  <ul class="menu">
+    <li class="menu__multi">
+        <a href="#" class="init-bottom">大学名</a>
+        <ul class="menu__second-level">
+            <!-- 第一階層 -->
+            {% for univ,departs in belonging.items %}
+                <li>
+                    <a href="#" class="init-right">{{ univ }}</a>
+                    <ul class="menu__third-level">
+                        <!-- 第二階層 -->
+                        {% for depart,subjects in departs.items %}
+                            <li>
+                                <a href="#" class="init-right">{{ depart }}</a>
+                                <ul class="menu__fourth-level">
+                                    <!-- 第三階層 -->
+                                    {% for subject in subjects %}
+                                        <li><a href="#">{{ subject }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+            <!-- 他メニュー省略 -->
+        </ul>
+    </li>
+    <!-- 他グローバルナビメニュー省略 -->
+</ul>
 </body>
 </html>
