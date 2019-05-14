@@ -8,7 +8,7 @@ def Get_belonging(request):
 	for univ in univs:
 		departs = list(Category.objects.all().order_by('id').filter(parent = univ).values_list('child', flat=True))
 		for depart in departs:
-			belonging_ps[depart] = list(Category.objects.all().order_by('id').filter(parent = depart).values_list('child', flat=True)).copy()
+			belonging_ps[depart] = list(Category.objects.all().order_by('id').filter(parent = depart , univ = univ).values_list('child', flat=True)).copy()
 			belonging_up[univ]=belonging_ps.copy()
 		belonging_ps={}
 	return render(request,

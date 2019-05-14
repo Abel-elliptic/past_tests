@@ -23,8 +23,8 @@ class Category(models.Model):
 	child = models.CharField("子", max_length=31)
 	def __str__(self):
 		if not self.parent:
-			return self.child + "大学"
+			return self.child
 		elif self.univ == self.parent:
-			return self.parent + "大学" + self.child
+			return self.parent + self.child
 		else:
-			return self.univ + "大学" + self.parent + self.child
+			return self.univ + self.parent + self.child
