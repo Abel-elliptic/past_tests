@@ -12,9 +12,9 @@ def Get_belonging(request):
 										filter(parent = depart , univ = univ).values_list('child', flat=True)).copy()
 			belonging_up[univ]=belonging_ps.copy()
 		belonging_ps={}
+		print(belonging_ps)
 	return render(request,
 				  'api/base.html',{# 使用するテンプレート
 					  'belonging': belonging_up,
 				  }  # テンプレートに渡すデータ
 				  )
-
