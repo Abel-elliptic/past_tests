@@ -17,4 +17,3 @@ def Get_belonging(request):
 					  'belonging': belonging_up,
 				  }  # テンプレートに渡すデータ
 				  )
-
